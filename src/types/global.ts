@@ -1,4 +1,4 @@
-import {WeatherCard} from '../components/weather/weather-card'
+import { WeatherCard } from '../components/weather/weather-card';
 
 interface CustomCard {
   type: string;
@@ -11,7 +11,7 @@ declare global {
     customCards: Array<CustomCard>;
   }
   interface HTMLElementTagNameMap {
-    "weather-card": WeatherCard,
+    'weather-card': WeatherCard;
   }
   type EntityID = string;
 }

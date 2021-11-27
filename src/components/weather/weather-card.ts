@@ -1,8 +1,8 @@
-import { LitElement, html, HTMLTemplateResult, PropertyValues, CSSResult } from 'lit';
-import { customElement, state, property } from 'lit/decorators';
-import { WeatherCardConfig } from './types/weather-card.type';
-import { HomeAssistant, hasConfigOrEntityChanged } from 'custom-card-helpers';
+import { hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
+import { CSSResult, html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
+import { customElement, property, state } from 'lit/decorators';
 import style from './style';
+import { WeatherCardConfig } from './types/weather-card.type';
 
 const NAME = 'weather-card';
 
