@@ -1,0 +1,17 @@
+export enum WeatherCondition {
+  Clear = 'clear',
+  ClearNight = 'clear-night',
+  Cloudy = 'cloudy',
+  Fog = 'fog',
+  Hail = 'hail',
+  Lightning = 'lightning',
+  LightningRainy = 'lightning-rainy',
+  PartlyCloudy = 'partlycloudy',
+  Pouring = 'pouring',
+  Rainy = 'rainy',
+  Snowy = 'snowy',
+  SnowyRainy = 'snowy-rainy',
+  Sunny = 'sunny',
+  Windy = 'windy',
+  WindyVariant = 'windy-variant',
+}

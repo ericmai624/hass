@@ -1,8 +1,10 @@
 import { hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
 import { CSSResult, html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
+import { Measure } from '../../types/hass';
+import { getEntity, getUnit } from '../../utils/hass-utils';
 import style from './style';
-import { WeatherCardConfig } from './types/weather-card.type';
+import { WeatherCardConfig, WeatherEntity } from './types/weather-card.type';
 
 const NAME = 'weather-card';
 
@@ -39,16 +41,53 @@ export class WeatherCard extends LitElement {
   }
 
   protected render(): HTMLTemplateResult {
-    const entity = this.config.entity;
-    const entityState = this.hass.states[entity];
-    if (!entityState) {
+    const entityID = this.config.entity;
+    const entity = getEntity<WeatherEntity>(this.hass, entityID);
+    if (!entity) {
       return html`
         <ha-card>
-          <div class="not-found">Entity not available: ${entity}</div>
+          <div class="not-found">Entity not available: ${entityID}</div>
         </ha-card>
       `;
     }
-    return html`<ha-card>hello world</ha-card>`;
+    return html`<ha-card> ${this.renderCurrent(entity)} </ha-card>`;
+  }
+
+  private renderCurrent(entity: WeatherEntity): HTMLTemplateResult {
+    const { current } = this.config;
+    const {
+      attributes: { temperature },
+      state,
+    } = entity;
+    console.log(entity);
+    const tempUnit = this.getUnit('temperature');
+    const isDisabled = current === false;
+    if (isDisabled) {
+      return html``;
+    }
+    return html`<div class="weather-current">
+      <div class="weather-current-icon"></div>
+      <div class="weather-current-name">${state}</div>
+      <div class="weather-current-temp-container">
+        <span class="weather-current-temp">${temperature}</span>
+        <span class="weathher-current-temp-unit">${tempUnit}</span>
+      </div>
+    </div>`;
+  }
+
+  private getUnit(measure: 'air_pressure' | 'precipitation' | 'precipitation_probability' | Measure): string {
+    const hass = this.hass;
+    const isMetric = getUnit(hass, 'length') === 'km';
+    switch (measure) {
+      case 'air_pressure':
+        return isMetric ? 'hPa' : 'inHg';
+      case 'precipitation':
+        return isMetric ? 'mm' : 'in';
+      case 'precipitation_probability':
+        return '%';
+      default:
+        return getUnit(hass, measure);
+    }
   }
 }
 
