@@ -1,10 +1,10 @@
 {
   "name": "hass",
   "version": "1.0.0",
-  "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "serve-weather": "npx parcel './src/components/weather/weather-card.ts' --port 8000"
+    "build-weather": "npx parcel build './src/components/weather/weather-card.ts' --dist-dir './dist' --no-source-maps",
+    "serve-weather": "npx parcel './src/components/weather/weather-card.ts' --dist-dir './dist/dev' --port 8000"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
