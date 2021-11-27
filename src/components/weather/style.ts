@@ -1,11 +1,12 @@
 import { css } from 'lit';
 
-const WARN = css`#FFFBE5`;
-
 export default css`
+  :root {
+    --color-warn: #fffbe5;
+  }
   .not-found {
     flex: 1;
-    background-color: ${WARN};
+    background-color: var(--color-warn);
     padding: 8px;
   }
   .weather-current {
