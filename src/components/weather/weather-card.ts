@@ -7,6 +7,7 @@ import { WeatherCondition } from './enums/weather-condition';
 import style from './style';
 import { WeatherCardConfig, WeatherEntity } from './types/weather-card.type';
 import { getConditionIcon } from './utils/weather-utils';
+import './weather-card-editor';
 
 const NAME = 'weather-card';
 
@@ -25,6 +26,10 @@ export class WeatherCard extends LitElement {
       entity = allEntities.find((entityID: EntityID): boolean => entityID.split('.')[0] === 'weather');
     }
     return { entity: entity as EntityID };
+  }
+
+  static async getConfigElement() {
+    return document.createElement('weather-card-editor');
   }
 
   static get styles(): CSSResult {
