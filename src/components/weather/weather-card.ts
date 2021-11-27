@@ -2,9 +2,11 @@ import { hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
 import { CSSResult, html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { Measure } from '../../types/hass';
-import { getEntity, getUnit } from '../../utils/hass-utils';
+import { getEntity, getEntityState, getUnit } from '../../utils/hass-utils';
+import { WeatherCondition } from './enums/weather-condition';
 import style from './style';
 import { WeatherCardConfig, WeatherEntity } from './types/weather-card.type';
+import { getConditionIcon } from './utils/weather-utils';
 
 const NAME = 'weather-card';
 
@@ -57,16 +59,15 @@ export class WeatherCard extends LitElement {
     const { current } = this.config;
     const {
       attributes: { temperature },
-      state,
     } = entity;
-    console.log(entity);
+    const state = getEntityState<WeatherCondition>(entity);
     const tempUnit = this.getUnit('temperature');
     const isDisabled = current === false;
     if (isDisabled) {
       return html``;
     }
     return html`<div class="weather-current">
-      <div class="weather-current-icon"></div>
+      <div class="weather-current-icon">${getConditionIcon(state)}</div>
       <div class="weather-current-name">${state}</div>
       <div class="weather-current-temp-container">
         <span class="weather-current-temp">${temperature}</span>

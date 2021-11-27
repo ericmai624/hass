@@ -1,9 +1,13 @@
 import { HomeAssistant } from 'custom-card-helpers';
 import { HassEntity } from 'home-assistant-js-websocket';
-import {Measure} from '../types/hass'
+import { Measure } from '../types/hass';
 
 export function getEntity<T extends HassEntity>(hass: HomeAssistant, entityID: EntityID): T {
   return hass.states[entityID] as T;
+}
+
+export function getEntityState<T extends string>(entity: HassEntity): T {
+  return entity.state as T;
 }
 
 export function getUnit(hass: HomeAssistant, measure: Measure): string {
