@@ -1,4 +1,4 @@
-import { hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
+import { computeDomain, hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
 import { html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { Measure } from '../../types/hass';
@@ -7,6 +7,7 @@ import { WeatherCondition } from './enums/weather-condition';
 import style from './style';
 import { WeatherCardConfig, WeatherEntity, WeatherForecast } from './types/weather-card.type';
 import { getConditionFriendlyName, getConditionIcon } from './utils/weather-utils';
+import { WEATHER_DOMAIN } from './weather-consts';
 import './weather-card-editor';
 
 const NAME = 'weather-card';
@@ -23,9 +24,9 @@ export class WeatherCard extends LitElement {
     unusedEntities: Readonly<Array<EntityID>>,
     allEntities: Readonly<Array<EntityID>>,
   ): { entity: EntityID } {
-    let entity = unusedEntities.find((entityID: EntityID): boolean => entityID.split('.')[0] === 'weather');
+    let entity = unusedEntities.find((entityID: EntityID): boolean => computeDomain(entityID) === WEATHER_DOMAIN);
     if (!entity) {
-      entity = allEntities.find((entityID: EntityID): boolean => entityID.split('.')[0] === 'weather');
+      entity = allEntities.find((entityID: EntityID): boolean => computeDomain(entityID) === WEATHER_DOMAIN);
     }
     return { entity: entity as EntityID };
   }
@@ -101,7 +102,6 @@ export class WeatherCard extends LitElement {
     const {
       attributes: { forecast },
     } = entity;
-    console.log(forecast);
     const forecastEntries = forecast.slice(0, numOfForecasts).map(
       ({ condition, datetime, temperature, templow }: WeatherForecast): HTMLTemplateResult => html`<div
         class="flex flex-column forecast"

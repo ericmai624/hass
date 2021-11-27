@@ -1,7 +1,8 @@
-import { fireEvent, HomeAssistant } from 'custom-card-helpers';
+import { computeDomain, fireEvent, HomeAssistant } from 'custom-card-helpers';
 import { css, html, HTMLTemplateResult, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { WeatherCardConfig } from './types/weather-card.type';
+import { WEATHER_DOMAIN } from './weather-consts';
 
 const NAME = 'weather-card-editor';
 
@@ -47,7 +48,7 @@ export class WeatherCardEditor extends LitElement {
       number_of_forecasts: numOfForecast = 5,
     } = this.config ?? {};
     const entityIDs = Object.keys(hass.states).filter(
-      (entityID: EntityID): boolean => entityID.split('.')[0] === 'weather',
+      (entityID: EntityID): boolean => computeDomain(entityID) === WEATHER_DOMAIN,
     );
     return html`
       <div class="card-config">
@@ -58,10 +59,9 @@ export class WeatherCardEditor extends LitElement {
                 <ha-entity-picker
                   .hass="${hass}"
                   .value="${entity}"
-                  domain-filter="weather"
+                  .includeDomains=${[WEATHER_DOMAIN]}
                   @change="${this.handleChange('entity')}"
-                  allow-custom-entity
-                ></ha-entity-picker>
+                />
               `
             : html`
                 <paper-dropdown-menu label="Entity" @value-changed="${this.handleChange('entity')}">
@@ -94,7 +94,7 @@ export class WeatherCardEditor extends LitElement {
             label="Number of future forcasts"
             type="number"
             min="1"
-            max="8"
+            max="5"
             value=${numOfForecast}
             @value-changed="${this.handleChange('number_of_forecasts')}"
           ></paper-input>
