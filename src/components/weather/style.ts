@@ -4,33 +4,51 @@ export default css`
   :root {
     --color-warn: #fffbe5;
   }
+  .flex {
+    display: flex;
+  }
+  .flex-justify-center {
+    justify-content: center;
+  }
+  .flex-column {
+    flex-direction: column;
+  }
   .not-found {
     flex: 1;
     background-color: var(--color-warn);
     padding: 8px;
   }
   .weather-current {
+    align-items: center;
     box-sizing: border-box;
     display: grid;
     padding: 16px;
     grid-template-columns: 64px 1fr min-content;
     grid-column-gap: 16px;
+    line-height: 1.2;
   }
-  .weather-current-icon {
+  .icon {
     height: 64px;
     width: 64px;
   }
-  .weather-current-temp-container {
-    align-items: flex-top;
-    display: flex;
-    line-height: 1.2;
-  }
-  .weather-current-temp {
+  .title {
     font-size: 28px;
-    margin-right: 4px;
   }
-  .weathher-current-temp-unit {
+  .subtitle {
+    color: var(--secondary-text-color);
+    font-size: 14px;
+  }
+  .right-content {
+    flex-shrink: 0;
+    height: 48px;
+    text-align: right;
+  }
+  .temperature {
+    font-size: 28px;
+  }
+  .unit {
     font-size: 24px;
+    margin-left: 4px;
   }
 
   /**

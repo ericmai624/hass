@@ -10,8 +10,8 @@ import Rainy7 from '../icons/rainy-7';
 import Snowy6 from '../icons/snowy-6';
 import Thunder from '../icons/thunder';
 
-export function getConditionIcon(cond: WeatherCondition): SVGTemplateResult | void {
-  switch (cond) {
+export function getConditionIcon(condition: WeatherCondition): SVGTemplateResult | void {
+  switch (condition) {
     case WeatherCondition.Clear:
     case WeatherCondition.Sunny:
       return Day;
@@ -37,4 +37,11 @@ export function getConditionIcon(cond: WeatherCondition): SVGTemplateResult | vo
     case WeatherCondition.Snowy:
       return Snowy6;
   }
+}
+
+export function getConditionFriendlyName(condition: WeatherCondition): string {
+  return condition
+    .split('-')
+    .map((word) => word.replace(/^\w/, (s) => s.toUpperCase()))
+    .join(' ');
 }

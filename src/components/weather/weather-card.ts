@@ -1,12 +1,12 @@
 import { hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
-import { CSSResult, html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
+import { html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { Measure } from '../../types/hass';
 import { getEntity, getEntityState, getUnit } from '../../utils/hass-utils';
 import { WeatherCondition } from './enums/weather-condition';
 import style from './style';
 import { WeatherCardConfig, WeatherEntity } from './types/weather-card.type';
-import { getConditionIcon } from './utils/weather-utils';
+import { getConditionFriendlyName, getConditionIcon } from './utils/weather-utils';
 import './weather-card-editor';
 
 const NAME = 'weather-card';
@@ -15,6 +15,8 @@ const NAME = 'weather-card';
 export class WeatherCard extends LitElement {
   @state() private config!: WeatherCardConfig;
   @property() public hass!: HomeAssistant;
+
+  static styles = style;
 
   static getStubConfig(
     _hass: HomeAssistant,
@@ -30,10 +32,6 @@ export class WeatherCard extends LitElement {
 
   static async getConfigElement() {
     return document.createElement('weather-card-editor');
-  }
-
-  static get styles(): CSSResult {
-    return style;
   }
 
   public setConfig(config: WeatherCardConfig): void {
@@ -61,7 +59,7 @@ export class WeatherCard extends LitElement {
   }
 
   private renderCurrent(entity: WeatherEntity): HTMLTemplateResult {
-    const { current } = this.config;
+    const { current, name } = this.config;
     const {
       attributes: { temperature },
     } = entity;
@@ -72,11 +70,16 @@ export class WeatherCard extends LitElement {
       return html``;
     }
     return html`<div class="weather-current">
-      <div class="weather-current-icon">${getConditionIcon(state)}</div>
-      <div class="weather-current-name">${state}</div>
-      <div class="weather-current-temp-container">
-        <span class="weather-current-temp">${temperature}</span>
-        <span class="weathher-current-temp-unit">${tempUnit}</span>
+      <div class="icon">${getConditionIcon(state)}</div>
+      <div class="flex flex-column flex-justify-center">
+        <div class="title">${getConditionFriendlyName(state)}</div>
+        <div class="subtitle">${name}</div>
+      </div>
+      <div class="flex flex-column right-content">
+        <div class="flex">
+          <span class="temperature">${temperature}</span>
+          <span class="unit">${tempUnit}</span>
+        </div>
       </div>
     </div>`;
   }
