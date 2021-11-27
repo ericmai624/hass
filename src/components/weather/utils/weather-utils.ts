@@ -40,8 +40,13 @@ export function getConditionIcon(condition: WeatherCondition): SVGTemplateResult
 }
 
 export function getConditionFriendlyName(condition: WeatherCondition): string {
-  return condition
-    .split('-')
-    .map((word) => word.replace(/^\w/, (s) => s.toUpperCase()))
-    .join(' ');
+  switch (condition) {
+    case WeatherCondition.PartlyCloudy:
+      return 'Partly Cloudy';
+    default:
+      return condition
+        .split('-')
+        .map((word) => word.replace(/^\w/, (s) => s.toUpperCase()))
+        .join(' ');
+  }
 }

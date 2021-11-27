@@ -13,29 +13,54 @@ export default css`
   .flex-column {
     flex-direction: column;
   }
+  .flex-no-shrink {
+    flex-shrink: 0;
+  }
+  .grid {
+    display: grid;
+  }
+  .grid-align-center {
+    align-items: center;
+  }
+  .secondary-text {
+    color: var(--secondary-text-color);
+  }
+  .container {
+    padding: 16px;
+  }
   .not-found {
     flex: 1;
     background-color: var(--color-warn);
     padding: 8px;
   }
-  .weather-current {
-    align-items: center;
+  .current {
     box-sizing: border-box;
-    display: grid;
-    padding: 16px;
     grid-template-columns: 64px 1fr min-content;
     grid-column-gap: 16px;
     line-height: 1.2;
+  }
+  .forecasts {
+    justify-content: space-around;
+    margin-top: 16px;
+  }
+  .forecast {
+    align-items: center;
+  }
+  .forecast .icon-small {
+    margin: 8px 0;
   }
   .icon {
     height: 64px;
     width: 64px;
   }
+  .icon-small {
+    height: 40px;
+    width: 40px;
+  }
   .title {
     font-size: 28px;
   }
   .subtitle {
-    color: var(--secondary-text-color);
     font-size: 14px;
   }
   .right-content {
@@ -49,6 +74,13 @@ export default css`
   .unit {
     font-size: 24px;
     margin-left: 4px;
+  }
+  .temp-high {
+    font-size: 16px;
+    margin: 4px 0;
+  }
+  .temp-low {
+    font-size: 14px;
   }
 
   /**

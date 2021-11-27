@@ -5,7 +5,7 @@ import { Measure } from '../../types/hass';
 import { getEntity, getEntityState, getUnit } from '../../utils/hass-utils';
 import { WeatherCondition } from './enums/weather-condition';
 import style from './style';
-import { WeatherCardConfig, WeatherEntity } from './types/weather-card.type';
+import { WeatherCardConfig, WeatherEntity, WeatherForecast } from './types/weather-card.type';
 import { getConditionFriendlyName, getConditionIcon } from './utils/weather-utils';
 import './weather-card-editor';
 
@@ -55,7 +55,7 @@ export class WeatherCard extends LitElement {
         </ha-card>
       `;
     }
-    return html`<ha-card> ${this.renderCurrent(entity)} </ha-card>`;
+    return html`<ha-card class="container"> ${this.renderCurrent(entity)} ${this.renderForecasts(entity)} </ha-card>`;
   }
 
   private renderCurrent(entity: WeatherEntity): HTMLTemplateResult {
@@ -69,11 +69,11 @@ export class WeatherCard extends LitElement {
     if (isDisabled) {
       return html``;
     }
-    return html`<div class="weather-current">
-      <div class="icon">${getConditionIcon(state)}</div>
+    return html`<div class="grid grid-align-center current">
+      <div class="flex-no-shrink icon">${getConditionIcon(state)}</div>
       <div class="flex flex-column flex-justify-center">
         <div class="title">${getConditionFriendlyName(state)}</div>
-        <div class="subtitle">${name}</div>
+        <div class="subtitle secondary-text">${name}</div>
       </div>
       <div class="flex flex-column right-content">
         <div class="flex">
@@ -82,6 +82,37 @@ export class WeatherCard extends LitElement {
         </div>
       </div>
     </div>`;
+  }
+
+  private renderForecasts(entity: WeatherEntity): HTMLTemplateResult {
+    const {
+      forecast: isEnabled = false,
+      number_of_forecasts: numOfForecasts = 5,
+      hourly_forecast: isHourlyForecast,
+    } = this.config;
+    if (!isEnabled) {
+      return html``;
+    }
+    const { locale } = this.hass;
+    const { language = 'en' } = locale ?? {};
+    const dateTimeFormatOptions: Intl.DateTimeFormatOptions = isHourlyForecast
+      ? { hour: '2-digit', minute: '2-digit' }
+      : { weekday: 'short' };
+    const {
+      attributes: { forecast },
+    } = entity;
+    console.log(forecast);
+    const forecastEntries = forecast.slice(0, numOfForecasts).map(
+      ({ condition, datetime, temperature, templow }: WeatherForecast): HTMLTemplateResult => html`<div
+        class="flex flex-column forecast"
+      >
+        <div>${new Date(datetime).toLocaleString(language, dateTimeFormatOptions)}</div>
+        <div class="flex-no-shrink icon-small">${getConditionIcon(condition)}</div>
+        <span class="temp-high">${temperature}°</span>
+        <span class="temp-low secondary-text">${templow}°</span>
+      </div>`,
+    );
+    return html` <div class="flex forecasts">${forecastEntries}</div> `;
   }
 
   private getUnit(measure: 'air_pressure' | 'precipitation' | 'precipitation_probability' | Measure): string {
