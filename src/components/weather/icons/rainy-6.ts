@@ -5,8 +5,8 @@ export default svg`
     version="1.1"
     xmlns="http://www.w3.org/2000/svg"
     xmlns:xlink="http://www.w3.org/1999/xlink"
-    width="64"
-    height="64"
+    width="100%"
+    height="100%"
     viewbox="0 0 42 42">
     <defs>
         <filter id="blur" width="200%" height="200%">

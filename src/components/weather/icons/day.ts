@@ -5,8 +5,8 @@ export default svg`
   version="1.1"
   xmlns="http://www.w3.org/2000/svg"
   xmlns:xlink="http://www.w3.org/1999/xlink"
-  width="60"
-  height="60"
+  width="100%"
+  height="100%"
   viewbox="0 0 32 32"
 >
   <defs>
@@ -23,7 +23,7 @@ export default svg`
     </filter>
   </defs>
   <g filter="url(#blur)" id="day">
-    <g transform="translate(17,17)">
+    <g transform="translate(16,16)">
       <g class="am-weather-sun am-weather-sun-shiny am-weather-easing-ease-in-out">
         <g>
           <line
