@@ -7,6 +7,9 @@ export default css`
   .flex {
     display: flex;
   }
+  .flex-align-center {
+    align-items: center;
+  }
   .flex-justify-center {
     justify-content: center;
   }
@@ -27,6 +30,7 @@ export default css`
   }
   .container {
     padding: 16px;
+    cursor: pointer;
   }
   .not-found {
     flex: 1;
@@ -64,8 +68,8 @@ export default css`
     font-size: 14px;
   }
   .right-content {
+    align-items: end;
     flex-shrink: 0;
-    height: 48px;
     text-align: right;
   }
   .temperature {

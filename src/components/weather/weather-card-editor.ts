@@ -77,10 +77,10 @@ export class WeatherCardEditor extends LitElement {
               <ha-switch .checked=${current} @change="${this.handleChange('current')}"></ha-switch
               ><span>Show current</span>
             </div>
-            <div class="switch">
+            <!-- <div class="switch">
               <ha-switch .checked=${details} @change="${this.handleChange('details')}"></ha-switch
               ><span>Show details</span>
-            </div>
+            </div> -->
             <div class="switch">
               <ha-switch .checked=${forecast} @change="${this.handleChange('forecast')}"></ha-switch
               ><span>Show forecast</span>

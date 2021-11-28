@@ -1,4 +1,4 @@
-import { computeDomain, hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
+import { computeDomain, fireEvent, hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
 import { html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { Measure } from '../../types/hass';
@@ -59,7 +59,9 @@ export class WeatherCard extends LitElement {
         </ha-card>
       `;
     }
-    return html`<ha-card class="container"> ${this.renderCurrent(entity)} ${this.renderForecasts(entity)} </ha-card>`;
+    return html`<ha-card class="container" @click=${this.handleClick}>
+      ${this.renderCurrent(entity)} ${this.renderForecasts(entity)}
+    </ha-card>`;
   }
 
   private renderCurrent(entity: WeatherEntity): HTMLTemplateResult {
@@ -84,6 +86,10 @@ export class WeatherCard extends LitElement {
         <div class="flex">
           <span class="temperature">${temperature}</span>
           <span class="unit">${tempUnit}</span>
+        </div>
+        <div class="flex flex-align-center secondary-text">
+          <ha-icon icon="mdi:water-percent"></ha-icon>
+          ${entity.attributes.humidity}<span> % </span>
         </div>
       </div>
     </div>`;
@@ -131,6 +137,10 @@ export class WeatherCard extends LitElement {
         </div>`;
       });
     return html` <div class="flex forecasts">${forecastEntries}</div> `;
+  }
+
+  private handleClick(): void {
+    fireEvent(this, 'hass-more-info', { entityId: this.config.entity });
   }
 
   private getUnit(measure: 'air_pressure' | 'precipitation' | 'precipitation_probability' | Measure): string {
