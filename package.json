@@ -1,6 +1,6 @@
 {
   "name": "hass",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "license": "MIT",
   "scripts": {
     "build-weather": "npx parcel build './src/components/weather/weather-card.ts' --dist-dir './dist' --no-source-maps",
