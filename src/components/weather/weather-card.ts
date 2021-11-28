@@ -3,12 +3,15 @@ import { html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { Measure } from '../../types/hass';
 import { getEntity, getEntityState, getUnit } from '../../utils/hass-utils';
-import { WeatherCondition } from './enums/weather-condition';
+import { SUN_ENTITY_ID } from '../sun/sun-consts';
+import { SunState } from '../sun/sun-enums';
+import { SunEntity } from '../sun/types/sun.type';
 import style from './style';
-import { WeatherCardConfig, WeatherEntity, WeatherForecast } from './types/weather-card.type';
+import { WeatherCardConfig, WeatherEntity, WeatherForecast } from './types/weather.type';
 import { getConditionFriendlyName, getConditionIcon } from './utils/weather-utils';
-import { WEATHER_DOMAIN } from './weather-consts';
 import './weather-card-editor';
+import { WEATHER_DOMAIN } from './weather-consts';
+import { WeatherCondition } from './weather-enums';
 
 const NAME = 'weather-card';
 
@@ -64,16 +67,17 @@ export class WeatherCard extends LitElement {
     const {
       attributes: { temperature },
     } = entity;
-    const state = getEntityState<WeatherCondition>(entity);
+    const sunState = getEntityState<SunState>(getEntity(this.hass, SUN_ENTITY_ID));
+    const weatherState = getEntityState<WeatherCondition>(entity);
     const tempUnit = this.getUnit('temperature');
     const isDisabled = current === false;
     if (isDisabled) {
       return html``;
     }
     return html`<div class="grid grid-align-center current">
-      <div class="flex-no-shrink icon">${getConditionIcon(state)}</div>
+      <div class="flex-no-shrink icon">${getConditionIcon(weatherState, sunState)}</div>
       <div class="flex flex-column flex-justify-center">
-        <div class="title">${getConditionFriendlyName(state)}</div>
+        <div class="title">${getConditionFriendlyName(weatherState)}</div>
         <div class="subtitle secondary-text">${name}</div>
       </div>
       <div class="flex flex-column right-content">
@@ -94,7 +98,11 @@ export class WeatherCard extends LitElement {
     if (!isEnabled) {
       return html``;
     }
-    const { locale } = this.hass;
+    const hass = this.hass;
+    const { locale } = hass;
+    const {
+      attributes: { next_dawn: nextDawn, next_dusk: nextDusk },
+    } = getEntity<SunEntity>(hass, SUN_ENTITY_ID);
     const { language = 'en' } = locale ?? {};
     const dateTimeFormatOptions: Intl.DateTimeFormatOptions = isHourlyForecast
       ? { hour: '2-digit', minute: '2-digit' }
@@ -102,16 +110,26 @@ export class WeatherCard extends LitElement {
     const {
       attributes: { forecast },
     } = entity;
-    const forecastEntries = forecast.slice(0, numOfForecasts).map(
-      ({ condition, datetime, temperature, templow }: WeatherForecast): HTMLTemplateResult => html`<div
-        class="flex flex-column forecast"
-      >
-        <div>${new Date(datetime).toLocaleString(language, dateTimeFormatOptions)}</div>
-        <div class="flex-no-shrink icon-small">${getConditionIcon(condition)}</div>
-        <span class="temp-high">${temperature}°</span>
-        <span class="temp-low secondary-text">${templow}°</span>
-      </div>`,
-    );
+    const forecastEntries = forecast
+      .slice(0, numOfForecasts)
+      .map(({ condition, datetime, temperature, templow }: WeatherForecast): HTMLTemplateResult => {
+        const forecastDateTime = new Date(datetime);
+        return html`<div class="flex flex-column forecast">
+          <div>${forecastDateTime.toLocaleString(language, dateTimeFormatOptions)}</div>
+          <div class="flex-no-shrink icon-small">
+            ${getConditionIcon(
+              condition,
+              !isHourlyForecast
+                ? null
+                : forecastDateTime >= new Date(nextDusk) && forecastDateTime < new Date(nextDawn)
+                ? SunState.BelowHorizon
+                : SunState.AboveHorizon,
+            )}
+          </div>
+          <span class="temp-high">${temperature}°</span>
+          <span class="temp-low secondary-text">${templow}°</span>
+        </div>`;
+      });
     return html` <div class="flex forecasts">${forecastEntries}</div> `;
   }
 

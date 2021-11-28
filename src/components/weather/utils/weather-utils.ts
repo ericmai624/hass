@@ -1,7 +1,8 @@
 import { SVGTemplateResult } from 'lit';
-import { WeatherCondition } from '../enums/weather-condition';
+import { SunState } from '../../sun/sun-enums';
 import Cloudy from '../icons/cloudy';
 import CloudyDay3 from '../icons/cloudy-day-3';
+import CloudyNight3 from '../icons/cloudy-night-3';
 import Day from '../icons/day';
 import Night from '../icons/night';
 import Rainy5 from '../icons/rainy-5';
@@ -9,12 +10,13 @@ import Rainy6 from '../icons/rainy-6';
 import Rainy7 from '../icons/rainy-7';
 import Snowy6 from '../icons/snowy-6';
 import Thunder from '../icons/thunder';
+import { WeatherCondition } from '../weather-enums';
 
-export function getConditionIcon(condition: WeatherCondition): SVGTemplateResult | void {
+export function getConditionIcon(condition: WeatherCondition, sunState: SunState | null): SVGTemplateResult | void {
   switch (condition) {
     case WeatherCondition.Clear:
     case WeatherCondition.Sunny:
-      return Day;
+      return sunState === SunState.BelowHorizon ? Night : Day;
     case WeatherCondition.ClearNight:
       return Night;
     case WeatherCondition.Cloudy:
@@ -29,7 +31,7 @@ export function getConditionIcon(condition: WeatherCondition): SVGTemplateResult
       return Thunder;
     case WeatherCondition.PartlyCloudy:
     case WeatherCondition.WindyVariant:
-      return CloudyDay3;
+      return sunState === SunState.BelowHorizon ? CloudyNight3 : CloudyDay3;
     case WeatherCondition.Pouring:
       return Rainy6;
     case WeatherCondition.Rainy:

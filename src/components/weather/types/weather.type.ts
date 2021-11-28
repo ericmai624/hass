@@ -1,6 +1,6 @@
 import { LovelaceCardConfig } from 'custom-card-helpers';
 import { HassEntityAttributeBase, HassEntityBase } from 'home-assistant-js-websocket';
-import { WeatherCondition } from '../enums/weather-condition';
+import { WeatherCondition } from '../weather-enums';
 
 export interface WeatherCardConfig extends LovelaceCardConfig {
   current?: boolean;

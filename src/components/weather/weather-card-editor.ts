@@ -1,7 +1,7 @@
 import { computeDomain, fireEvent, HomeAssistant } from 'custom-card-helpers';
 import { css, html, HTMLTemplateResult, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
-import { WeatherCardConfig } from './types/weather-card.type';
+import { WeatherCardConfig } from './types/weather.type';
 import { WEATHER_DOMAIN } from './weather-consts';
 
 const NAME = 'weather-card-editor';
