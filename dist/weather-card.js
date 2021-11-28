@@ -1228,7 +1228,7 @@ const Ct=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e
         </g>
     </g>
 </svg>
-`;function Qt(t,e){switch(t){case Ft.Clear:case Ft.Sunny:return e===Ut.BelowHorizon?Zt:Gt;case Ft.ClearNight:return Zt;case Ft.Cloudy:case Ft.Fog:case Ft.Windy:return Bt;case Ft.Hail:case Ft.SnowyRainy:return Jt;case Ft.Lightning:case Ft.LightningRainy:return Kt;case Ft.PartlyCloudy:case Ft.WindyVariant:return e===Ut.BelowHorizon?Lt:It;case Ft.Pouring:return Vt;case Ft.Rainy:return Wt;case Ft.Snowy:return qt}}(jt=Ft||(Ft={})).Clear="clear",jt.ClearNight="clear-night",jt.Cloudy="cloudy",jt.Fog="fog",jt.Hail="hail",jt.Lightning="lightning",jt.LightningRainy="lightning-rainy",jt.PartlyCloudy="partlycloudy",jt.Pouring="pouring",jt.Rainy="rainy",jt.Snowy="snowy",jt.SnowyRainy="snowy-rainy",jt.Sunny="sunny",jt.Windy="windy",jt.WindyVariant="windy-variant";const te="weather";var ee=function(t,e,n,a){var i,r=arguments.length,o=r<3?e:null===a?a=Object.getOwnPropertyDescriptor(e,n):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,e,n,a);else for(var s=t.length-1;s>=0;s--)(i=t[s])&&(o=(r<3?i(o):r>3?i(e,n,o):i(e,n))||o);return r>3&&o&&Object.defineProperty(e,n,o),o};let ne=class extends Mt{static get styles(){return Y`
+`;function Qt(t,e){switch(t){case Ft.Clear:case Ft.Sunny:return e===Ut.BelowHorizon?Zt:Gt;case Ft.ClearNight:return Zt;case Ft.Cloudy:case Ft.Fog:case Ft.Windy:return Bt;case Ft.Hail:case Ft.SnowyRainy:return Jt;case Ft.Lightning:case Ft.LightningRainy:return Kt;case Ft.PartlyCloudy:case Ft.WindyVariant:return e===Ut.BelowHorizon?Lt:It;case Ft.Pouring:return Vt;case Ft.Rainy:return Wt;case Ft.Snowy:return qt}}(jt=Ft||(Ft={})).Clear="clear",jt.ClearNight="clear-night",jt.Cloudy="cloudy",jt.Exceptional="exceptional",jt.Fog="fog",jt.Hail="hail",jt.Lightning="lightning",jt.LightningRainy="lightning-rainy",jt.PartlyCloudy="partlycloudy",jt.Pouring="pouring",jt.Rainy="rainy",jt.Snowy="snowy",jt.SnowyRainy="snowy-rainy",jt.Sunny="sunny",jt.Windy="windy",jt.WindyVariant="windy-variant";const te="weather";var ee=function(t,e,n,a){var i,r=arguments.length,o=r<3?e:null===a?a=Object.getOwnPropertyDescriptor(e,n):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,e,n,a);else for(var s=t.length-1;s>=0;s--)(i=t[s])&&(o=(r<3?i(o):r>3?i(e,n,o):i(e,n))||o);return r>3&&o&&Object.defineProperty(e,n,o),o};let ne=class extends Mt{static get styles(){return Y`
       .switches {
         margin: 8px 0;
         display: flex;
@@ -1242,21 +1242,22 @@ const Ct=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e
       .switches span {
         padding: 0 16px;
       }
-    `}setConfig(t){this.config=Object.assign({},t)}render(){var t;const e=this.hass;if(!e)return lt``;const{current:n=!0,details:a,entity:i="",forecast:r,hourly_forecast:o,name:s="",number_of_forecasts:l=5}=null!==(t=this.config)&&void 0!==t?t:{},m=Object.keys(e.states).filter((t=>E(t)===te));return lt`
+    `}setConfig(t){this.config=Object.assign({},t)}render(){var t;const e=this.hass;if(!e)return lt``;const{current:n=!0,entity:a="",forecast:i,hourly_forecast:r,name:o="",number_of_forecasts:s=5}=null!==(t=this.config)&&void 0!==t?t:{},l=Object.keys(e.states).filter((t=>E(t)===te));return lt`
       <div class="card-config">
         <div>
-          <paper-input label="Name" .value="${s}" @value-changed="${this.handleChange("name")}"></paper-input>
+          <paper-input label="Name" .value="${o}" @value-changed="${this.handleChange("name")}"></paper-input>
           ${customElements.get("ha-entity-picker")?lt`
                 <ha-entity-picker
                   .hass="${e}"
-                  .value="${i}"
+                  .value="${a}"
                   .includeDomains=${[te]}
                   @change="${this.handleChange("entity")}"
-                />
+                >
+                </ha-entity-picker>
               `:lt`
                 <paper-dropdown-menu label="Entity" @value-changed="${this.handleChange("entity")}">
-                  <paper-listbox slot="dropdown-content" .selected="${m.indexOf(i)}">
-                    ${m.map((t=>lt` <paper-item>${t}</paper-item> `))}
+                  <paper-listbox slot="dropdown-content" .selected="${l.indexOf(a)}">
+                    ${l.map((t=>lt` <paper-item>${t}</paper-item> `))}
                   </paper-listbox>
                 </paper-dropdown-menu>
               `}
@@ -1265,16 +1266,12 @@ const Ct=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e
               <ha-switch .checked=${n} @change="${this.handleChange("current")}"></ha-switch
               ><span>Show current</span>
             </div>
-            <!-- <div class="switch">
-              <ha-switch .checked=${a} @change="${this.handleChange("details")}"></ha-switch
-              ><span>Show details</span>
-            </div> -->
             <div class="switch">
-              <ha-switch .checked=${r} @change="${this.handleChange("forecast")}"></ha-switch
+              <ha-switch .checked=${i} @change="${this.handleChange("forecast")}"></ha-switch
               ><span>Show forecast</span>
             </div>
             <div class="switch">
-              <ha-switch .checked=${o} @change="${this.handleChange("hourly_forecast")}"></ha-switch
+              <ha-switch .checked=${r} @change="${this.handleChange("hourly_forecast")}"></ha-switch
               ><span>Show hourly forecast</span>
             </div>
           </div>
@@ -1283,7 +1280,7 @@ const Ct=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e
             type="number"
             min="1"
             max="5"
-            value=${l}
+            value=${s}
             @value-changed="${this.handleChange("number_of_forecasts")}"
           ></paper-input>
         </div>
@@ -1298,7 +1295,7 @@ const Ct=t=>e=>"function"==typeof e?((t,e)=>(window.customElements.define(t,e),e
       <div class="flex-no-shrink icon">${Qt(r,i)}</div>
       <div class="flex flex-column flex-justify-center">
         <div class="title">${s=r,s===Ft.PartlyCloudy?"Partly Cloudy":s.split("-").map((t=>t.replace(/^\w/,(t=>t.toUpperCase())))).join(" ")}</div>
-        <div class="subtitle secondary-text">${n}</div>
+        <div class="subtitle secondary-text">${null!=n?n:"Home"}</div>
       </div>
       <div class="flex flex-column right-content">
         <div class="flex">

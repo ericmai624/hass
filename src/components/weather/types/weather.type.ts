@@ -4,7 +4,6 @@ import { WeatherCondition } from '../weather-enums';
 
 export interface WeatherCardConfig extends LovelaceCardConfig {
   current?: boolean;
-  details?: boolean;
   entity: string;
   forecast?: boolean;
   hide_precipitation?: boolean;

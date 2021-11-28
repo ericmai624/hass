@@ -80,7 +80,7 @@ export class WeatherCard extends LitElement {
       <div class="flex-no-shrink icon">${getConditionIcon(weatherState, sunState)}</div>
       <div class="flex flex-column flex-justify-center">
         <div class="title">${getConditionFriendlyName(weatherState)}</div>
-        <div class="subtitle secondary-text">${name}</div>
+        <div class="subtitle secondary-text">${name ?? 'Home'}</div>
       </div>
       <div class="flex flex-column right-content">
         <div class="flex">

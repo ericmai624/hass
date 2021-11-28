@@ -40,7 +40,6 @@ export class WeatherCardEditor extends LitElement {
     }
     const {
       current = true,
-      details,
       entity = '',
       forecast,
       hourly_forecast: hourlyForecast,
@@ -61,7 +60,8 @@ export class WeatherCardEditor extends LitElement {
                   .value="${entity}"
                   .includeDomains=${[WEATHER_DOMAIN]}
                   @change="${this.handleChange('entity')}"
-                />
+                >
+                </ha-entity-picker>
               `
             : html`
                 <paper-dropdown-menu label="Entity" @value-changed="${this.handleChange('entity')}">
@@ -77,10 +77,6 @@ export class WeatherCardEditor extends LitElement {
               <ha-switch .checked=${current} @change="${this.handleChange('current')}"></ha-switch
               ><span>Show current</span>
             </div>
-            <!-- <div class="switch">
-              <ha-switch .checked=${details} @change="${this.handleChange('details')}"></ha-switch
-              ><span>Show details</span>
-            </div> -->
             <div class="switch">
               <ha-switch .checked=${forecast} @change="${this.handleChange('forecast')}"></ha-switch
               ><span>Show forecast</span>

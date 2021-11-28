@@ -2,6 +2,7 @@ export enum WeatherCondition {
   Clear = 'clear',
   ClearNight = 'clear-night',
   Cloudy = 'cloudy',
+  Exceptional = 'exceptional',
   Fog = 'fog',
   Hail = 'hail',
   Lightning = 'lightning',
