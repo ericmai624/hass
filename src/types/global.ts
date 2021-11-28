@@ -1,10 +1,5 @@
 import { WeatherCard } from '../components/weather/weather-card';
-
-interface CustomCard {
-  type: string;
-  name: string;
-  description: string;
-}
+import { CustomCard } from './hass';
 
 declare global {
   interface Window {
@@ -15,5 +10,3 @@ declare global {
   }
   type EntityID = string;
 }
-
-export {};

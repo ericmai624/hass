@@ -1,3 +1,4 @@
+import { computeDomain } from 'custom-card-helpers';
 import { SVGTemplateResult } from 'lit';
 import { SunState } from '../../sun/sun-enums';
 import Cloudy from '../icons/cloudy';
@@ -10,6 +11,7 @@ import Rainy6 from '../icons/rainy-6';
 import Rainy7 from '../icons/rainy-7';
 import Snowy6 from '../icons/snowy-6';
 import Thunder from '../icons/thunder';
+import { WEATHER_DOMAIN } from '../weather-consts';
 import { WeatherCondition } from '../weather-enums';
 
 export function getConditionIcon(condition: WeatherCondition, sunState: SunState | null): SVGTemplateResult | void {
@@ -48,7 +50,11 @@ export function getConditionFriendlyName(condition: WeatherCondition): string {
     default:
       return condition
         .split('-')
-        .map((word) => word.replace(/^\w/, (s) => s.toUpperCase()))
+        .map((word: string): string => word.replace(/^\w/, (s: string): string => s.toUpperCase()))
         .join(' ');
   }
+}
+
+export function isWeatherDomain(entityID: EntityID): boolean {
+  return computeDomain(entityID) === WEATHER_DOMAIN;
 }

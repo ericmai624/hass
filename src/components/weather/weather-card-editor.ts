@@ -1,33 +1,17 @@
-import { computeDomain, fireEvent, HomeAssistant } from 'custom-card-helpers';
-import { css, html, HTMLTemplateResult, LitElement } from 'lit';
+import { fireEvent, HomeAssistant } from 'custom-card-helpers';
+import { html, HTMLTemplateResult, LitElement } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { WeatherCardConfig } from './types/weather.type';
-import { WEATHER_DOMAIN } from './weather-consts';
+import { isWeatherDomain } from './utils/weather-utils';
+import WeatherCardEditorStyle from './weather-card-editor-style';
+import { WEATHER_CARD_EDITOR_NAME, WEATHER_DOMAIN } from './weather-consts';
 
-const NAME = 'weather-card-editor';
-
-@customElement(NAME)
+@customElement(WEATHER_CARD_EDITOR_NAME)
 export class WeatherCardEditor extends LitElement {
   @state() private config?: WeatherCardConfig;
   @property() public hass!: HomeAssistant;
 
-  static get styles() {
-    return css`
-      .switches {
-        margin: 8px 0;
-        display: flex;
-        justify-content: space-between;
-      }
-      .switch {
-        display: flex;
-        align-items: center;
-        justify-items: center;
-      }
-      .switches span {
-        padding: 0 16px;
-      }
-    `;
-  }
+  static styles = WeatherCardEditorStyle;
 
   public setConfig(config: WeatherCardConfig): void {
     this.config = { ...config };
@@ -35,9 +19,6 @@ export class WeatherCardEditor extends LitElement {
 
   protected render(): HTMLTemplateResult {
     const hass = this.hass;
-    if (!hass) {
-      return html``;
-    }
     const {
       current = true,
       entity = '',
@@ -46,9 +27,7 @@ export class WeatherCardEditor extends LitElement {
       name = '',
       number_of_forecasts: numOfForecast = 5,
     } = this.config ?? {};
-    const entityIDs = Object.keys(hass.states).filter(
-      (entityID: EntityID): boolean => computeDomain(entityID) === WEATHER_DOMAIN,
-    );
+    const entityIDs = Object.keys(hass.states).filter(isWeatherDomain);
     return html`
       <div class="card-config">
         <div>
