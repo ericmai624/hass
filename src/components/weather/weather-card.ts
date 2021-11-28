@@ -84,7 +84,7 @@ export class WeatherCard extends LitElement {
       </div>
       <div class="flex flex-column right-content">
         <div class="flex">
-          <span class="temperature">${temperature}</span>
+          <span class="temperature">${Math.round(temperature)}</span>
           <span class="unit">${tempUnit}</span>
         </div>
         <div class="flex flex-align-center secondary-text">
@@ -111,7 +111,7 @@ export class WeatherCard extends LitElement {
     } = getEntity<SunEntity>(hass, SUN_ENTITY_ID);
     const { language = 'en' } = locale ?? {};
     const dateTimeFormatOptions: Intl.DateTimeFormatOptions = isHourlyForecast
-      ? { hour: '2-digit', minute: '2-digit' }
+      ? { hour: '2-digit' }
       : { weekday: 'short' };
     const {
       attributes: { forecast },
@@ -121,7 +121,9 @@ export class WeatherCard extends LitElement {
       .map(({ condition, datetime, temperature, templow }: WeatherForecast): HTMLTemplateResult => {
         const forecastDateTime = new Date(datetime);
         return html`<div class="flex flex-column forecast">
-          <div>${forecastDateTime.toLocaleString(language, dateTimeFormatOptions)}</div>
+          <div>
+            ${forecastDateTime.toLocaleString(language, dateTimeFormatOptions).replace(/^0/, '').replace(' ', '')}
+          </div>
           <div class="flex-no-shrink icon-small">
             ${getConditionIcon(
               condition,
@@ -132,8 +134,8 @@ export class WeatherCard extends LitElement {
                 : SunState.AboveHorizon,
             )}
           </div>
-          <span class="temp-high">${temperature}°</span>
-          <span class="temp-low secondary-text">${templow}°</span>
+          <span class="temp-high">${Math.round(temperature)}°</span>
+          ${templow != null ? html`<span class="temp-low secondary-text">${Math.round(templow)}°</span>` : html``}
         </div>`;
       });
     return html` <div class="flex forecasts">${forecastEntries}</div> `;

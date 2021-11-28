@@ -28,7 +28,7 @@ export type WeatherForecast = WeatherForecastBase & {
   condition: WeatherCondition;
   datetime: string;
   precipitation: number;
-  templow: number;
+  templow?: number; // not available in hourly forecast
 };
 
 type WeatherForecastBase = {
