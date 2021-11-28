@@ -2,27 +2,11 @@ import { svg } from 'lit';
 
 export default svg`
 <svg
-  version="1.1"
-  xmlns="http://www.w3.org/2000/svg"
-  xmlns:xlink="http://www.w3.org/1999/xlink"
   width="100%"
   height="100%"
   viewbox="0 0 32 32"
 >
-  <defs>
-    <filter id="blur" width="200%" height="200%">
-      <feGaussianBlur in="SourceAlpha" stdDeviation="3" />
-      <feOffset dx="0" dy="4" result="offsetblur" />
-      <feComponentTransfer>
-        <feFuncA type="linear" slope="0.05" />
-      </feComponentTransfer>
-      <feMerge>
-        <feMergeNode />
-        <feMergeNode in="SourceGraphic" />
-      </feMerge>
-    </filter>
-  </defs>
-  <g filter="url(#blur)" id="day">
+  <g id="day">
     <g transform="translate(16,16)">
       <g class="am-weather-sun am-weather-sun-shiny am-weather-easing-ease-in-out">
         <g>

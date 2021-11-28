@@ -2,26 +2,10 @@ import { svg } from 'lit';
 
 export default svg`
 <svg
-    version="1.1"
-    xmlns="http://www.w3.org/2000/svg"
-    xmlns:xlink="http://www.w3.org/1999/xlink"
     width="100%"
     height="100%"
     viewbox="0 0 32 32">
-    <defs>
-        <filter id="blur" width="200%" height="200%">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-            <feOffset dx="0" dy="4" result="offsetblur"/>
-            <feComponentTransfer>
-                <feFuncA type="linear" slope="0.05"/>
-            </feComponentTransfer>
-            <feMerge> 
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/> 
-            </feMerge>
-        </filter>
-    </defs>
-    <g filter="url(#blur)" id="night">
+    <g id="night">
         <g transform="translate(4,4)">
             <g class="am-weather-moon-star-1">
                 <polygon fill="orange" points="3.3,1.5 4,2.7 5.2,3.3 4,4 3.3,5.2 2.7,4 1.5,3.3 2.7,2.7" stroke="none" stroke-miterlimit="10"/>
