@@ -1147,13 +1147,13 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
           ${a}<span> % </span>
         </div>
       </div>
-    </div>`;var l}renderForecasts({attributes:t}){const{forecast:n=!1,number_of_forecasts:e=5,hourly_forecast:a}=this.config;if(!n)return lt``;const i=this.hass,{locale:r}=i,{language:o="en"}=null!=r?r:{},{attributes:{next_dawn:s,next_dusk:l}}=Pt(i,Ut),m=a?{hour:"2-digit"}:{weekday:"short"},c=t.forecast.slice(0,e).map((({condition:t,datetime:n,temperature:e,templow:i})=>{const r=new Date(n);return lt`<div class="flex flex-column forecast">
+    </div>`;var l}renderForecasts({attributes:t}){const{forecast:n=!1,hourly_forecast:e,number_of_forecasts:a=5}=this.config;if(!n)return lt``;const i=this.hass,{locale:r}=i,{language:o="en"}=null!=r?r:{},{attributes:{next_dawn:s,next_dusk:l}}=Pt(i,Ut),m=e?{hour:"2-digit"}:{weekday:"short"},c=t.forecast.slice(0,a).map((({condition:t,datetime:n,temperature:a,templow:i},r)=>{const c=new Date(n);return lt`<div class="flex flex-column forecast">
           <div>
-            ${r.toLocaleString(o,m).replace(/^0/,"").replace(" ","")}
+            ${0!==r||e?c.toLocaleString(o,m).replace(/^0/,"").replace(" ",""):"Today"}
           </div>
           <div class="flex-no-shrink icon-small">
-            ${tn(t,a?r>=new Date(l)&&r<new Date(s)?Nt.BelowHorizon:Nt.AboveHorizon:null)}
+            ${tn(t,e?c>=new Date(l)&&c<new Date(s)?Nt.BelowHorizon:Nt.AboveHorizon:null)}
           </div>
-          <span class="temp-high">${Math.round(e)}°</span>
+          <span class="temp-high">${Math.round(a)}°</span>
           ${null!=i?lt`<span class="temp-low secondary-text">${Math.round(i)}°</span>`:lt``}
         </div>`}));return lt` <div class="flex forecasts">${c}</div> `}handleClick(){S(this,"hass-more-info",{entityId:this.config.entity})}getUnit(t){const n=this.hass,e="km"===Tt(n,"length");switch(t){case"air_pressure":return e?"hPa":"inHg";case"precipitation":return e?"mm":"in";case"precipitation_probability":return"%";default:return Tt(n,t)}}};ln.styles=on,sn([Ht()],ln.prototype,"config",void 0),sn([Dt()],ln.prototype,"hass",void 0),ln=sn([Mt(Gt)],ln),function(t){var n;window.customCards=null!==(n=window.customCards)&&void 0!==n?n:[];const e=window.customCards.findIndex((n=>n.type===t.type));-1===e?window.customCards.push(t):window.customCards[e]=t}({type:Gt,name:"custom-weather-card",description:"A custom weather card with animated SVG icons",preview:!0})})();

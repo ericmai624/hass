@@ -67,8 +67,8 @@ export class WeatherCard extends LitElement {
     const sunState = getEntityState<SunState>(getEntity(this.hass, SUN_ENTITY_ID));
     const weatherState = getEntityState<WeatherCondition>(entity);
     const tempUnit = this.getUnit('temperature');
-    const isDisabled = current === false;
-    if (isDisabled) {
+    const isCurrentDisabled = current === false;
+    if (isCurrentDisabled) {
       return html``;
     }
     return html`<div class="grid grid-align-center current">
@@ -93,8 +93,8 @@ export class WeatherCard extends LitElement {
   private renderForecasts({ attributes }: WeatherEntity): HTMLTemplateResult {
     const {
       forecast: isForecastEnabled = false,
-      number_of_forecasts: numOfForecasts = 5,
       hourly_forecast: isHourlyForecast,
+      number_of_forecasts: numOfForecasts = 5,
     } = this.config;
     if (!isForecastEnabled) {
       return html``;
@@ -110,11 +110,13 @@ export class WeatherCard extends LitElement {
       : { weekday: 'short' };
     const forecastEntries = attributes.forecast
       .slice(0, numOfForecasts)
-      .map(({ condition, datetime, temperature, templow }: WeatherForecast): HTMLTemplateResult => {
+      .map(({ condition, datetime, temperature, templow }: WeatherForecast, index: number): HTMLTemplateResult => {
         const forecastDateTime = new Date(datetime);
         return html`<div class="flex flex-column forecast">
           <div>
-            ${forecastDateTime.toLocaleString(language, dateTimeFormatOptions).replace(/^0/, '').replace(' ', '')}
+            ${index === 0 && !isHourlyForecast
+              ? 'Today'
+              : forecastDateTime.toLocaleString(language, dateTimeFormatOptions).replace(/^0/, '').replace(' ', '')}
           </div>
           <div class="flex-no-shrink icon-small">
             ${getConditionIcon(
