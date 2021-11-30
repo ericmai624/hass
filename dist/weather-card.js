@@ -42,12 +42,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
  * @license
  * Copyright 2017 Google LLC
  * SPDX-License-Identifier: BSD-3-Clause
- */function Pt(t,n){return t.states[n]}function Ot(t){return t.state}function Tt(t,n){return t.config.unit_system[n]}const Ut="sun.sun";var Nt,Rt;(Rt=Nt||(Nt={})).AboveHorizon="above_horizon",Rt.BelowHorizon="below_horizon";var jt=mt`
+ */function Pt(t,n){const e=t.states[n];return null==e?null:e}function Ot(t,n){const e=Pt(t,n);if(null==e)throw new Error(`Unexpected null when trying to get ${n} from Home Assistant object`);return e}function Tt(t){return t.state}function Ut(t,n){return t.config.unit_system[n]}const Nt="sun.sun";var Rt,jt;(jt=Rt||(Rt={})).AboveHorizon="above_horizon",jt.BelowHorizon="below_horizon";var Xt=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 42 42">
-    <g id="cloudy">
+    <g>
         <g transform="translate(9,2)">
             <g class="am-weather-cloud-1">
                 <path d="M47.7,35.4     c0-4.6-3.7-8.2-8.2-8.2c-1,0-1.9,0.2-2.8,0.5c-0.3-3.4-3.1-6.2-6.6-6.2c-3.7,0-6.7,3-6.7,6.7c0,0.8,0.2,1.6,0.4,2.3     c-0.3-0.1-0.7-0.1-1-0.1c-3.7,0-6.7,3-6.7,6.7c0,3.6,2.9,6.6,6.5,6.7l17.2,0C44.2,43.3,47.7,39.8,47.7,35.4z" fill="#91C0F8" stroke="white" stroke-linejoin="round" stroke-width="1.2" transform="translate(-10,-8), scale(0.6)"/>
@@ -58,12 +58,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,Xt=mt`
+`,Ft=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 48 48">
-    <g id="cloudy-day-3">
+    <g>
         <g transform="translate(16,6)">
             <g transform="translate(0,14)">
                 <g class="am-weather-sun">
@@ -100,12 +100,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,Ft=mt`
+`,It=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 48 48">
-    <g id="cloudy-night-3">
+    <g>
         <g transform="translate(9,5)">
             <g transform="translate(16,4), scale(0.8)">
                 <g class="am-weather-moon-star-1">
@@ -124,13 +124,13 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,It=mt`
+`,Lt=mt`
 <svg
   width="100%"
   height="100%"
   viewbox="0 0 32 32"
 >
-  <g id="day">
+  <g>
     <g transform="translate(16,16)">
       <g class="am-weather-sun am-weather-sun-shiny am-weather-easing-ease-in-out">
         <g>
@@ -242,13 +242,13 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
     </g>
   </g>
 </svg>
-`,Lt=mt`
+`,Bt=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 32 32">
-    <g id="night">
-        <g transform="translate(4,4)">
+    <g>
+        <g transform="translate(3,3)">
             <g class="am-weather-moon-star-1">
                 <polygon fill="orange" points="3.3,1.5 4,2.7 5.2,3.3 4,4 3.3,5.2 2.7,4 1.5,3.3 2.7,2.7" stroke="none" stroke-miterlimit="10"/>
             </g>
@@ -261,12 +261,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,Bt=mt`
+`,Zt=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 44 44">
-    <g id="rainy-5">
+    <g>
         <g transform="translate(10,-5)">
             <g>
                 <path d="M47.7,35.4c0-4.6-3.7-8.2-8.2-8.2c-1,0-1.9,0.2-2.8,0.5c-0.3-3.4-3.1-6.2-6.6-6.2c-3.7,0-6.7,3-6.7,6.7c0,0.8,0.2,1.6,0.4,2.3    c-0.3-0.1-0.7-0.1-1-0.1c-3.7,0-6.7,3-6.7,6.7c0,3.6,2.9,6.6,6.5,6.7l17.2,0C44.2,43.3,47.7,39.8,47.7,35.4z" fill="#57A0EE" stroke="white" stroke-linejoin="round" stroke-width="1.2" transform="translate(-20,-11)"/>
@@ -278,12 +278,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,Zt=mt`
+`,Wt=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 44 44">
-    <g id="rainy-6">
+    <g>
         <g transform="translate(10,-5)">
             <g>
                 <path d="M47.7,35.4c0-4.6-3.7-8.2-8.2-8.2c-1,0-1.9,0.2-2.8,0.5c-0.3-3.4-3.1-6.2-6.6-6.2c-3.7,0-6.7,3-6.7,6.7c0,0.8,0.2,1.6,0.4,2.3    c-0.3-0.1-0.7-0.1-1-0.1c-3.7,0-6.7,3-6.7,6.7c0,3.6,2.9,6.6,6.5,6.7l17.2,0C44.2,43.3,47.7,39.8,47.7,35.4z" fill="#57A0EE" stroke="white" stroke-linejoin="round" stroke-width="1.2" transform="translate(-20,-11)"/>
@@ -296,12 +296,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,Wt=mt`
+`,Vt=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 44 44">
-    <g id="rainy-7">
+    <g>
         <g transform="translate(10,-5)">
             <g>
                 <path d="M47.7,35.4c0-4.6-3.7-8.2-8.2-8.2c-1,0-1.9,0.2-2.8,0.5c-0.3-3.4-3.1-6.2-6.6-6.2c-3.7,0-6.7,3-6.7,6.7c0,0.8,0.2,1.6,0.4,2.3    c-0.3-0.1-0.7-0.1-1-0.1c-3.7,0-6.7,3-6.7,6.7c0,3.6,2.9,6.6,6.5,6.7l17.2,0C44.2,43.3,47.7,39.8,47.7,35.4z" fill="#57A0EE" stroke="white" stroke-linejoin="round" stroke-width="1.2" transform="translate(-20,-11)"/>
@@ -314,12 +314,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,Vt=mt`
+`,Jt=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 42 42">
-    <g id="snowy-6">
+    <g>
         <g transform="translate(9,-7)">
             <g class="am-weather-cloud-2">
                 <path d="M47.7,35.4c0-4.6-3.7-8.2-8.2-8.2c-1,0-1.9,0.2-2.8,0.5c-0.3-3.4-3.1-6.2-6.6-6.2c-3.7,0-6.7,3-6.7,6.7c0,0.8,0.2,1.6,0.4,2.3    c-0.3-0.1-0.7-0.1-1-0.1c-3.7,0-6.7,3-6.7,6.7c0,3.6,2.9,6.6,6.5,6.7l17.2,0C44.2,43.3,47.7,39.8,47.7,35.4z" fill="#57A0EE" stroke="white" stroke-linejoin="round" stroke-width="1.2" transform="translate(-20,-11)"/>
@@ -351,12 +351,12 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`,Jt=mt`
+`,qt=mt`
 <svg
     width="100%"
     height="100%"
     viewbox="0 0 42 42">
-    <g id="thunder">
+    <g>
         <g transform="translate(9,-4)">
             <g class="am-weather-cloud-1">
                 <path d="M47.7,35.4     c0-4.6-3.7-8.2-8.2-8.2c-1,0-1.9,0.2-2.8,0.5c-0.3-3.4-3.1-6.2-6.6-6.2c-3.7,0-6.7,3-6.7,6.7c0,0.8,0.2,1.6,0.4,2.3     c-0.3-0.1-0.7-0.1-1-0.1c-3.7,0-6.7,3-6.7,6.7c0,3.6,2.9,6.6,6.5,6.7l17.2,0C44.2,43.3,47.7,39.8,47.7,35.4z" fill="#91C0F8" stroke="white" stroke-linejoin="round" stroke-width="1.2" transform="translate(-10,-6), scale(0.6)" />
@@ -370,7 +370,7 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
         </g>
     </g>
 </svg>
-`;const qt="weather",Gt="weather-card";var Kt,Qt;function tn(t,n){switch(t){case Kt.Clear:case Kt.Sunny:return n===Nt.BelowHorizon?Lt:It;case Kt.ClearNight:return Lt;case Kt.Cloudy:case Kt.Fog:case Kt.Windy:return jt;case Kt.Hail:case Kt.SnowyRainy:return Wt;case Kt.Lightning:case Kt.LightningRainy:return Jt;case Kt.PartlyCloudy:case Kt.WindyVariant:return n===Nt.BelowHorizon?Ft:Xt;case Kt.Pouring:return Zt;case Kt.Rainy:return Bt;case Kt.Snowy:return Vt}}function nn(t){return z(t)===qt}(Qt=Kt||(Kt={})).Clear="clear",Qt.ClearNight="clear-night",Qt.Cloudy="cloudy",Qt.Exceptional="exceptional",Qt.Fog="fog",Qt.Hail="hail",Qt.Lightning="lightning",Qt.LightningRainy="lightning-rainy",Qt.PartlyCloudy="partlycloudy",Qt.Pouring="pouring",Qt.Rainy="rainy",Qt.Snowy="snowy",Qt.SnowyRainy="snowy-rainy",Qt.Sunny="sunny",Qt.Windy="windy",Qt.WindyVariant="windy-variant";var en=H`
+`;const Gt="weather",Kt="weather-card";var Qt,tn;function nn(t,n){switch(t){case Qt.Clear:case Qt.Sunny:return n===Rt.BelowHorizon?Bt:Lt;case Qt.ClearNight:return Bt;case Qt.Cloudy:case Qt.Fog:case Qt.Windy:return Xt;case Qt.Hail:case Qt.SnowyRainy:return Vt;case Qt.Lightning:case Qt.LightningRainy:return qt;case Qt.PartlyCloudy:case Qt.WindyVariant:return n===Rt.BelowHorizon?It:Ft;case Qt.Pouring:return Wt;case Qt.Rainy:return Zt;case Qt.Snowy:return Jt}}function en(t){return z(t)===Gt}(tn=Qt||(Qt={})).Clear="clear",tn.ClearNight="clear-night",tn.Cloudy="cloudy",tn.Exceptional="exceptional",tn.Fog="fog",tn.Hail="hail",tn.Lightning="lightning",tn.LightningRainy="lightning-rainy",tn.PartlyCloudy="partlycloudy",tn.Pouring="pouring",tn.Rainy="rainy",tn.Snowy="snowy",tn.SnowyRainy="snowy-rainy",tn.Sunny="sunny",tn.Windy="windy",tn.WindyVariant="windy-variant";var an=H`
   .switches {
     margin: 8px 0;
     display: flex;
@@ -384,7 +384,7 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
   .switches span {
     padding: 0 16px;
   }
-`,an=function(t,n,e,a){var i,r=arguments.length,o=r<3?n:null===a?a=Object.getOwnPropertyDescriptor(n,e):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,n,e,a);else for(var s=t.length-1;s>=0;s--)(i=t[s])&&(o=(r<3?i(o):r>3?i(n,e,o):i(n,e))||o);return r>3&&o&&Object.defineProperty(n,e,o),o};let rn=class extends St{setConfig(t){this.config=Object.assign({},t)}render(){var t;const n=this.hass,{current:e=!0,entity:a="",forecast:i,hourly_forecast:r,name:o="",number_of_forecasts:s=5}=null!==(t=this.config)&&void 0!==t?t:{},l=Object.keys(n.states).filter(nn);return lt`
+`,rn=function(t,n,e,a){var i,r=arguments.length,o=r<3?n:null===a?a=Object.getOwnPropertyDescriptor(n,e):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,n,e,a);else for(var s=t.length-1;s>=0;s--)(i=t[s])&&(o=(r<3?i(o):r>3?i(n,e,o):i(n,e))||o);return r>3&&o&&Object.defineProperty(n,e,o),o};let on=class extends St{setConfig(t){this.config=Object.assign({},t)}render(){var t;const n=this.hass,{current:e=!0,entity:a="",forecast:i,hourly_forecast:r,name:o="",number_of_forecasts:s=5}=null!==(t=this.config)&&void 0!==t?t:{},l=Object.keys(n.states).filter(en);return lt`
       <div class="card-config">
         <div>
           <paper-input label="Name" .value="${o}" @value-changed="${this.handleChange("name")}"></paper-input>
@@ -392,7 +392,7 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
                 <ha-entity-picker
                   .hass="${n}"
                   .value="${a}"
-                  .includeDomains=${[qt]}
+                  .includeDomains=${[Gt]}
                   @change="${this.handleChange("entity")}"
                 >
                 </ha-entity-picker>
@@ -427,7 +427,7 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
           ></paper-input>
         </div>
       </div>
-    `}handleChange(t){return n=>{var e;const a=this.config;if(null==a||null==this.hass)return;const i=n.target;if(null==i)return;const r=Object.assign({},a),o=null!==(e=i.checked)&&void 0!==e?e:i.value;"string"==typeof o&&""===o?delete r[t]:r[t]=o,S(this,"config-changed",{config:r})}}};rn.styles=en,an([Ht()],rn.prototype,"config",void 0),an([Dt()],rn.prototype,"hass",void 0),rn=an([Mt("weather-card-editor")],rn);var on=H`
+    `}handleChange(t){return n=>{var e;const a=this.config;if(null==a||null==this.hass)return;const i=n.target;if(null==i)return;const r=Object.assign({},a),o=null!==(e=i.checked)&&void 0!==e?e:i.value;"string"==typeof o&&""===o?delete r[t]:r[t]=o,S(this,"config-changed",{config:r})}}};on.styles=an,rn([Ht()],on.prototype,"config",void 0),rn([Dt()],on.prototype,"hass",void 0),on=rn([Mt("weather-card-editor")],on);var sn=H`
   :root {
     --color-warn: #fffbe5;
   }
@@ -1125,16 +1125,16 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
     -ms-animation-timing-function: ease-in-out;
     animation-timing-function: ease-in-out;
   }
-`,sn=function(t,n,e,a){var i,r=arguments.length,o=r<3?n:null===a?a=Object.getOwnPropertyDescriptor(n,e):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,n,e,a);else for(var s=t.length-1;s>=0;s--)(i=t[s])&&(o=(r<3?i(o):r>3?i(n,e,o):i(n,e))||o);return r>3&&o&&Object.defineProperty(n,e,o),o};let ln=class extends St{static getStubConfig(t,n,e){var a;return{entity:null!==(a=n.find(nn))&&void 0!==a?a:e.find(nn)}}static async getConfigElement(){return document.createElement("weather-card-editor")}setConfig(t){if(!t.entity)throw new Error("Please define a weather entity");this.config=t}shouldUpdate(t){return function(t,n,e){if(n.has("config")||e)return!0;if(t.config.entity){var a=n.get("hass");return!a||a.states[t.config.entity]!==t.hass.states[t.config.entity]}return!1}(this,t,!1)}render(){const t=this.config.entity,n=Pt(this.hass,t);return n?lt`<ha-card class="container" @click=${this.handleClick}>
-      ${this.renderCurrent(n)} ${this.renderForecasts(n)}
-    </ha-card>`:lt`
+`,ln=function(t,n,e,a){var i,r=arguments.length,o=r<3?n:null===a?a=Object.getOwnPropertyDescriptor(n,e):a;if("object"==typeof Reflect&&"function"==typeof Reflect.decorate)o=Reflect.decorate(t,n,e,a);else for(var s=t.length-1;s>=0;s--)(i=t[s])&&(o=(r<3?i(o):r>3?i(n,e,o):i(n,e))||o);return r>3&&o&&Object.defineProperty(n,e,o),o};let mn=class extends St{static getStubConfig(t,n,e){var a;return{entity:null!==(a=n.find(en))&&void 0!==a?a:e.find(en)}}static async getConfigElement(){return document.createElement("weather-card-editor")}setConfig(t){if(!t.entity)throw new Error("Please define a weather entity");this.config=t}shouldUpdate(t){return function(t,n,e){if(n.has("config")||e)return!0;if(t.config.entity){var a=n.get("hass");return!a||a.states[t.config.entity]!==t.hass.states[t.config.entity]}return!1}(this,t,!1)}render(){const t=this.config.entity,n=Pt(this.hass,t);return null==n?lt`
         <ha-card>
           <div class="not-found">Entity not available: ${t}</div>
         </ha-card>
-      `}renderCurrent(t){const{current:n,name:e}=this.config,{attributes:{humidity:a,temperature:i}}=t,r=Ot(Pt(this.hass,Ut)),o=Ot(t),s=this.getUnit("temperature");return!1===n?lt``:lt`<div class="grid grid-align-center current">
-      <div class="flex-no-shrink icon">${tn(o,r)}</div>
+      `:lt`<ha-card class="container" @click=${this.handleClick}>
+      ${this.renderCurrent(n)} ${this.renderForecasts(n)}
+    </ha-card>`}renderCurrent(t){const{current:n,name:e}=this.config,{attributes:{humidity:a,temperature:i}}=t,r=Tt(Ot(this.hass,Nt)),o=Tt(t),s=this.getUnit("temperature");return!1===n?lt``:lt`<div class="grid grid-align-center current">
+      <div class="flex-no-shrink icon">${nn(o,r)}</div>
       <div class="flex flex-column flex-justify-center">
-        <div class="title">${l=o,l===Kt.PartlyCloudy?"Partly Cloudy":l.split("-").map((t=>t.replace(/^\w/,(t=>t.toUpperCase())))).join(" ")}</div>
+        <div class="title">${l=o,l===Qt.PartlyCloudy?"Partly Cloudy":l.split("-").map((t=>t.replace(/^\w/,(t=>t.toUpperCase())))).join(" ")}</div>
         <div class="subtitle secondary-text">${null!=e?e:"Home"}</div>
       </div>
       <div class="flex flex-column right-content">
@@ -1147,13 +1147,13 @@ const Mt=t=>n=>"function"==typeof n?((t,n)=>(window.customElements.define(t,n),n
           ${a}<span> % </span>
         </div>
       </div>
-    </div>`;var l}renderForecasts({attributes:t}){const{forecast:n=!1,hourly_forecast:e,number_of_forecasts:a=5}=this.config;if(!n)return lt``;const i=this.hass,{locale:r}=i,{language:o="en"}=null!=r?r:{},{attributes:{next_dawn:s,next_dusk:l}}=Pt(i,Ut),m=e?{hour:"2-digit"}:{weekday:"short"},c=t.forecast.slice(0,a).map((({condition:t,datetime:n,temperature:a,templow:i},r)=>{const c=new Date(n);return lt`<div class="flex flex-column forecast">
+    </div>`;var l}renderForecasts({attributes:t}){const{forecast:n=!1,hourly_forecast:e,number_of_forecasts:a=5}=this.config;if(!n)return lt``;const i=this.hass,{locale:r}=i,{language:o="en"}=null!=r?r:{},{attributes:{next_dawn:s,next_dusk:l}}=Ot(i,Nt),m=e?{hour:"2-digit"}:{weekday:"short"},c=t.forecast.slice(0,a).map((({condition:t,datetime:n,temperature:a,templow:i},r)=>{const c=new Date(n);return lt`<div class="flex flex-column forecast">
           <div>
             ${0!==r||e?c.toLocaleString(o,m).replace(/^0/,"").replace(" ",""):"Today"}
           </div>
           <div class="flex-no-shrink icon-small">
-            ${tn(t,e?c>=new Date(l)&&c<new Date(s)?Nt.BelowHorizon:Nt.AboveHorizon:null)}
+            ${nn(t,e?c>=new Date(l)&&c<new Date(s)?Rt.BelowHorizon:Rt.AboveHorizon:null)}
           </div>
           <span class="temp-high">${Math.round(a)}°</span>
           ${null!=i?lt`<span class="temp-low secondary-text">${Math.round(i)}°</span>`:lt``}
-        </div>`}));return lt` <div class="flex forecasts">${c}</div> `}handleClick(){S(this,"hass-more-info",{entityId:this.config.entity})}getUnit(t){const n=this.hass,e="km"===Tt(n,"length");switch(t){case"air_pressure":return e?"hPa":"inHg";case"precipitation":return e?"mm":"in";case"precipitation_probability":return"%";default:return Tt(n,t)}}};ln.styles=on,sn([Ht()],ln.prototype,"config",void 0),sn([Dt()],ln.prototype,"hass",void 0),ln=sn([Mt(Gt)],ln),function(t){var n;window.customCards=null!==(n=window.customCards)&&void 0!==n?n:[];const e=window.customCards.findIndex((n=>n.type===t.type));-1===e?window.customCards.push(t):window.customCards[e]=t}({type:Gt,name:"custom-weather-card",description:"A custom weather card with animated SVG icons",preview:!0})})();
+        </div>`}));return lt` <div class="flex forecasts">${c}</div> `}handleClick(){S(this,"hass-more-info",{entityId:this.config.entity})}getUnit(t){const n=this.hass,e="km"===Ut(n,"length");switch(t){case"air_pressure":return e?"hPa":"inHg";case"precipitation":return e?"mm":"in";case"precipitation_probability":return"%";default:return Ut(n,t)}}};mn.styles=sn,ln([Ht()],mn.prototype,"config",void 0),ln([Dt()],mn.prototype,"hass",void 0),mn=ln([Mt(Kt)],mn),function(t){var n;window.customCards=null!==(n=window.customCards)&&void 0!==n?n:[];const e=window.customCards.findIndex((n=>n.type===t.type));-1===e?window.customCards.push(t):window.customCards[e]=t}({type:Kt,name:"custom-weather-card",description:"A custom weather card with animated SVG icons",preview:!0})})();

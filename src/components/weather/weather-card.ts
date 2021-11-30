@@ -2,7 +2,7 @@ import { fireEvent, hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-
 import { html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { Measure } from '../../types/hass';
-import { addCustomCard, getEntity, getEntityState, getUnit } from '../../utils/hass-utils';
+import { addCustomCard, getEntity, getEntityState, getUnit, getxEntity } from '../../utils/hass-utils';
 import { SUN_ENTITY_ID } from '../sun/sun-consts';
 import { SunState } from '../sun/sun-enums';
 import { SunEntity } from '../sun/types/sun.type';
@@ -47,7 +47,7 @@ export class WeatherCard extends LitElement {
   protected render(): HTMLTemplateResult {
     const entityID = this.config.entity;
     const entity = getEntity<WeatherEntity>(this.hass, entityID);
-    if (!entity) {
+    if (entity == null) {
       return html`
         <ha-card>
           <div class="not-found">Entity not available: ${entityID}</div>
@@ -64,7 +64,7 @@ export class WeatherCard extends LitElement {
     const {
       attributes: { humidity, temperature },
     } = entity;
-    const sunState = getEntityState<SunState>(getEntity(this.hass, SUN_ENTITY_ID));
+    const sunState = getEntityState<SunState>(getxEntity(this.hass, SUN_ENTITY_ID));
     const weatherState = getEntityState<WeatherCondition>(entity);
     const tempUnit = this.getUnit('temperature');
     const isCurrentDisabled = current === false;
@@ -104,7 +104,7 @@ export class WeatherCard extends LitElement {
     const { language = 'en' } = locale ?? {};
     const {
       attributes: { next_dawn: nextDawn, next_dusk: nextDusk },
-    } = getEntity<SunEntity>(hass, SUN_ENTITY_ID);
+    } = getxEntity<SunEntity>(hass, SUN_ENTITY_ID);
     const dateTimeFormatOptions: Intl.DateTimeFormatOptions = isHourlyForecast
       ? { hour: '2-digit' }
       : { weekday: 'short' };

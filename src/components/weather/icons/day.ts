@@ -6,7 +6,7 @@ export default svg`
   height="100%"
   viewbox="0 0 32 32"
 >
-  <g id="day">
+  <g>
     <g transform="translate(16,16)">
       <g class="am-weather-sun am-weather-sun-shiny am-weather-easing-ease-in-out">
         <g>

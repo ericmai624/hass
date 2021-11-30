@@ -5,8 +5,8 @@ export default svg`
     width="100%"
     height="100%"
     viewbox="0 0 32 32">
-    <g id="night">
-        <g transform="translate(4,4)">
+    <g>
+        <g transform="translate(3,3)">
             <g class="am-weather-moon-star-1">
                 <polygon fill="orange" points="3.3,1.5 4,2.7 5.2,3.3 4,4 3.3,5.2 2.7,4 1.5,3.3 2.7,2.7" stroke="none" stroke-miterlimit="10"/>
             </g>

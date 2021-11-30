@@ -5,7 +5,7 @@ export default svg`
     width="100%"
     height="100%"
     viewbox="0 0 48 48">
-    <g id="cloudy-day-3">
+    <g>
         <g transform="translate(16,6)">
             <g transform="translate(0,14)">
                 <g class="am-weather-sun">
