@@ -43,18 +43,6 @@ export function getConditionIcon(condition: WeatherCondition, sunState: SunState
   }
 }
 
-export function getConditionFriendlyName(condition: WeatherCondition): string {
-  switch (condition) {
-    case WeatherCondition.PartlyCloudy:
-      return 'Partly Cloudy';
-    default:
-      return condition
-        .split('-')
-        .map((word: string): string => word.replace(/^\w/, (s: string): string => s.toUpperCase()))
-        .join(' ');
-  }
-}
-
 export function isWeatherDomain(entityID: EntityID): boolean {
   return computeDomain(entityID) === WEATHER_DOMAIN;
 }

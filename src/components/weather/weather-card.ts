@@ -1,4 +1,10 @@
-import { fireEvent, hasConfigOrEntityChanged, HomeAssistant } from 'custom-card-helpers';
+import {
+  computeStateDisplay,
+  fireEvent,
+  hasConfigOrEntityChanged,
+  HomeAssistant,
+  NumberFormat,
+} from 'custom-card-helpers';
 import { html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
 import { Measure } from '../../types/hass';
@@ -7,7 +13,7 @@ import { SUN_ENTITY_ID } from '../sun/sun-consts';
 import { SunState } from '../sun/sun-enums';
 import { SunEntity } from '../sun/types/sun.type';
 import { WeatherCardConfig, WeatherEntity, WeatherForecast } from './types/weather.type';
-import { getConditionFriendlyName, getConditionIcon, isWeatherDomain } from './utils/weather-utils';
+import { getConditionIcon, isWeatherDomain } from './utils/weather-utils';
 import './weather-card-editor';
 import WeatherCardStyle from './weather-card-style';
 import { WEATHER_CARD_NAME } from './weather-consts';
@@ -60,11 +66,13 @@ export class WeatherCard extends LitElement {
   }
 
   private renderCurrent(entity: WeatherEntity): HTMLTemplateResult {
+    const hass = this.hass;
     const { current, name } = this.config;
+    const { locale = { language: hass.selectedLanguage, number_format: NumberFormat.system }, localize } = hass;
     const {
       attributes: { humidity, temperature },
     } = entity;
-    const sunState = getEntityState<SunState>(getxEntity(this.hass, SUN_ENTITY_ID));
+    const sunState = getEntityState<SunState>(getxEntity(hass, SUN_ENTITY_ID));
     const weatherState = getEntityState<WeatherCondition>(entity);
     const tempUnit = this.getUnit('temperature');
     const isCurrentDisabled = current === false;
@@ -74,7 +82,7 @@ export class WeatherCard extends LitElement {
     return html`<div class="grid grid-align-center current">
       <div class="flex-no-shrink icon">${getConditionIcon(weatherState, sunState)}</div>
       <div class="flex flex-column flex-justify-center">
-        <div class="title">${getConditionFriendlyName(weatherState)}</div>
+        <div class="title">${computeStateDisplay(localize, entity, locale, weatherState)}</div>
         <div class="subtitle secondary-text">${name ?? 'Home'}</div>
       </div>
       <div class="flex flex-column right-content">
@@ -100,8 +108,7 @@ export class WeatherCard extends LitElement {
       return html``;
     }
     const hass = this.hass;
-    const { locale } = hass;
-    const { language = 'en' } = locale ?? {};
+    const language = hass.locale?.language ?? hass.selectedLanguage;
     const {
       attributes: { next_dawn: nextDawn, next_dusk: nextDusk },
     } = getxEntity<SunEntity>(hass, SUN_ENTITY_ID);
