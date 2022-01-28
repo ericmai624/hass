@@ -4,6 +4,7 @@ import {
   hasConfigOrEntityChanged,
   HomeAssistant,
   NumberFormat,
+  TimeFormat,
 } from 'custom-card-helpers';
 import { html, HTMLTemplateResult, LitElement, PropertyValues } from 'lit';
 import { customElement, property, state } from 'lit/decorators';
@@ -68,7 +69,10 @@ export class WeatherCard extends LitElement {
   private renderCurrent(entity: WeatherEntity): HTMLTemplateResult {
     const hass = this.hass;
     const { current, name } = this.config;
-    const { locale = { language: hass.selectedLanguage, number_format: NumberFormat.system }, localize } = hass;
+    const {
+      locale = { language: hass.language, number_format: NumberFormat.system, time_format: TimeFormat.system },
+      localize,
+    } = hass;
     const {
       attributes: { humidity, temperature },
     } = entity;
